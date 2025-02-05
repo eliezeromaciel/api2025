@@ -15,42 +15,29 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 })
 
-pool.getConnection ((err, connection) => {
-  console.log('ATÉ AQUI')
-  if (err) {
-    console.error('NAO CONECTOU O BANCO-DE-DADOS', err)
-    return
-  }
-  console.log('✅✅✅ Conexão com o banco de dados bem-sucedida!')
-  connection.release() // Libera a conexão
+// já testa a obtenção de conexão temporária , retornando uma query de usuário.
+async function testSelect() {
+  try {
+    const connection = await pool.getConnection()
+    console.log('✅ Conexão bem-sucedida!')
 
-  // QUANDO quiser fechar o pool, e nao trava o terminal. .
+    const [rows] = await connection.execute('SELECT * FROM usuario') 
+    console.log('📌 Dados encontrados:', rows)
+
+    connection.release()
+  } catch (error) {
+    console.error('❌ Erro ao conectar ou buscar dados:', error)
+  }
+
+  // fecha o pool para não trancar o terminal (estou testando arquivo connect-db.js diretamente no terminal)
   pool.end((endErr) => {  
     if (endErr) console.error('❌ Erro ao fechar o pool:', endErr)
     else console.log('🔌 Pool de conexões fechado.')
   })
-})
+}
 
-// const testeSelectUsuario = async function testSelect() {
-//   try {
-//     const connection = await pool.getConnection()
-//     console.log('✅ conectou para select usuario')
+testSelect()
 
-//     const [rows] = await connection.execute('SELECT * FROM usuario')
-//     console.log('📌 Dados encontrados:', rows)
-
-//     connection.release()
-//   } catch (error) {
-//     console.error('❌ Erro ao conectar ou buscar dados:', error)
-//   }
-
-//   pool.end((endErr) => {  
-//     if (endErr) console.error('❌ Erro ao fechar o pool:', endErr)
-//     else console.log('🔌 Pool de conexões fechado.')
-//   })
-
-// }
-// testeSelectUsuario()
 
 export default pool
 
