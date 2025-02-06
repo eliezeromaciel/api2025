@@ -21,19 +21,16 @@ async function testSelect() {
     const connection = await pool.getConnection()
     console.log('✅ Conexão bem-sucedida!')
 
-    const [rows] = await connection.execute('SELECT * FROM usuario') 
-    console.log('📌 Dados encontrados:', rows)
-
     connection.release()
   } catch (error) {
     console.error('❌ Erro ao conectar ou buscar dados:', error)
   }
 
   // fecha o pool para não trancar o terminal (estou testando arquivo connect-db.js diretamente no terminal)
-  pool.end((endErr) => {  
-    if (endErr) console.error('❌ Erro ao fechar o pool:', endErr)
-    else console.log('🔌 Pool de conexões fechado.')
-  })
+  // pool.end((endErr) => {  
+  //   if (endErr) console.error('❌ Erro ao fechar o pool:', endErr)
+  //   else console.log('🔌 Pool de conexões fechado.')
+  // })
 }
 
 testSelect()
