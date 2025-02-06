@@ -4,7 +4,18 @@ import pool from '../config/connect-db.js'
   
 export const getAllUsers = async () => {
   try {
-    const [rows] = await pool.promise().query('SELECT * FROM usuario')
+    const [rows] = await pool.query('SELECT * FROM usuario')
+    console.log('Resultado da consulta:', rows)
+    return rows
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error)
+    throw error
+  }
+}
+
+export const getUserByID = async (id) => {
+  try {
+    const [rows] = await pool.query(`SELECT * FROM usuario WHERE usuarioID=${id}`)
     console.log('Resultado da consulta:', rows)
     return rows
   } catch (error) {
