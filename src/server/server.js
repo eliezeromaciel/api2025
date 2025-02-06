@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getAllUsers } from '../models/userModel.js'
+import { getAllUsers, getUserByID } from '../models/userModel.js'
 
 
 const server = express()
@@ -15,6 +15,16 @@ server.get('/allusers', async (req, res) => {
   const users = await getAllUsers()
   console.log(users)
   return res.send(`resultado do allusers: ${users}`)
+})
+
+server.get('/user/:userID', async (req, res) => {
+  const usuarioID = req.params
+ 
+  const user = await getUserByID(usuarioID.userID)
+
+  console.log('❌❌❌❌❌❌❌❌❌❌')
+  return res.send()
+  
 })
 
 
