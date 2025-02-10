@@ -15,11 +15,11 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 })
 
-// já testa a obtenção de conexão temporária , retornando uma query de usuário.
-async function testSelect() {
+//abre pool com banco dados
+async function abrePool() {
   try {
     const connection = await pool.getConnection()
-    console.log('✅ Conexão bem-sucedida!')
+    console.log('✅ Conexão com banco de dados bem-sucedida!')
 
     connection.release()
   } catch (error) {
@@ -33,7 +33,7 @@ async function testSelect() {
   // })
 }
 
-testSelect()
+abrePool()
 
 
 export default pool
