@@ -1,31 +1,13 @@
+// AQUI TEREMOS TODA CONFIGURACAO DO NOSSO SERVIDOR, LOGINS, ROTAS
+
 import express from 'express'
-
-import { getAllUsers, getUserByID } from '../models/userModel.js'
-
+import { listaUsuarioId, listaUsuarios } from '../controllers/userController.js'
 
 const server = express()
 
-// AQUI TEREMOS TODA CONFIGURACAO DO NOSSO SERVIDOR, LOGINS, ROTAS
 
-server.get('/', (req, res) =>{
-  return res.send('testando, servidor ligado huhuhuh')
-} )
-
-server.get('/allusers', async (req, res) => {
-  const users = await getAllUsers()
-  console.log(users)
-  return res.send(`resultado do allusers: ${users}`)
-})
-
-server.get('/user/:userID', async (req, res) => {
-  const usuarioID = req.params
- 
-  const user = await getUserByID(usuarioID.userID)
-
-  console.log('❌❌❌❌❌❌❌❌❌❌')
-  return res.send()
-  
-})
+server.get('/allusers', listaUsuarios)
+server.get('/user/:userID',listaUsuarioId)
 
 
 
