@@ -18,3 +18,4 @@ export const listaUsuarioId = async (req, res) => {
     res.error
   }
 }
+
