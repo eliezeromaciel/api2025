@@ -1,7 +1,7 @@
 // AQUI TEREMOS TODA CONFIGURACAO DO NOSSO SERVIDOR, LOGINS, ROTAS
 
 import express from 'express'
-import { listaUsuarioId, listaUsuarios } from '../controllers/userController.js'
+import { listaUsuarioId, listaUsuarios } from '../controllers/usuarioController.js'
 import { listaConsumidorId, listaConsumidores, novoConsumidor } from '../controllers/consumidorController.js'
 
 const server = express()
